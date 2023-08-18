@@ -1,10 +1,20 @@
-from flask import Flask, render_template
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Website</title>
+</head>
+<body>
+    <header>
+        <!-- Header content -->
+    </header>
 
-app = Flask(__name__)
+    <main>
+        <!-- Main content -->
+    </main>
 
-@app.route('/')
-def ana_sayfa():
-    yazar_adi = "sevgitr" 
-    return render_template('ana_sayfa.html', yazar_adi=yazar_adi)
-
-{% include 'footer.html' %}
+    <footer>
+        <p>&copy; 2023 Your Website Name. All rights reserved.</p>
+        <p>Author: {{ author_name }}</p>
+    </footer>
+</body>
+</html>
