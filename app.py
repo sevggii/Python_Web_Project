@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    author_name = "Your Name"  # Değiştirin
+    author_name = "Your Name"
     return render_template('index.html', author_name=author_name)
 
 @app.route('/register')
