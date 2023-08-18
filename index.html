@@ -1,0 +1,10 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def ana_sayfa():
+    yazar_adi = "sevgitr" 
+    return render_template('ana_sayfa.html', yazar_adi=yazar_adi)
+
+{% include 'footer.html' %}
