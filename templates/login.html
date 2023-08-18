@@ -54,6 +54,25 @@ span.psw {
   padding-top: 16px;
 }
 
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -67,6 +86,12 @@ span.psw {
 </style>
 </head>
 <body>
+
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/register">Register</a>
+  <a href="/login">Login</a>
+</div>
 
 <h2>Login Form</h2>
 
