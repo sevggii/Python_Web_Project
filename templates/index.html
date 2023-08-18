@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Website</title>
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-        <!-- Header content -->
-    </header>
+    <div class="sidebar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
 
-    <main>
-        <!-- Main content -->
-    </main>
+    <div class="content">
+        <h1>Weather Forecast</h1>
+
+        <form action="/" method="POST">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Show Forecast</button>
+        </form>
+
+        {% if weather_data %}
+        <!-- Weather forecast table code -->
+        {% endif %}
+
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+    </div>
 
     {% include 'footer.html' %}
 </body>
