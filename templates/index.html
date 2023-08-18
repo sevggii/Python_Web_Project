@@ -5,14 +5,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>Site Adı</h1>
+    <div class="navigation-bar">
         <div class="header-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
+            <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="/contact" class="{{ 'active' if request.path == '/contact' else '' }}">Contact</a>
         </div>
     </div>
+    
 
     <div class="content">
         <div class="sidebar">
