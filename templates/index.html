@@ -5,30 +5,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="sidebar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
+    <div class="header">
+        <h1>Site Adı</h1>
+        <div class="header-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
     </div>
 
     <div class="content">
-        <h1>Weather Forecast</h1>
+        <div class="sidebar">
+            <!-- Boş bırak, gezinme menüsü burada olmayacak -->
+        </div>
 
-        <form action="/" method="POST">
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" required>
-            <button type="submit">Show Forecast</button>
-        </form>
+        <div class="main-content">
+            <h1>Weather Forecast</h1>
 
-        {% if weather_data %}
-        <!-- Weather forecast table code -->
-        {% endif %}
+            <form action="/" method="POST">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+                <button type="submit">Show Forecast</button>
+            </form>
 
-        {% if error %}
-        <p>{{ error }}</p>
-        {% endif %}
+            {% if weather_data %}
+            <!-- Weather forecast table code -->
+            {% endif %}
+
+            {% if error %}
+            <p>{{ error }}</p>
+            {% endif %}
+        </div>
     </div>
 
     {% include 'footer.html' %}
