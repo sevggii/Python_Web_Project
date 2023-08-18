@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>My Weather App</h1>
+    </div>
+
+    <div class="content">
+        <div class="main-content">
+            <h2>User Registration</h2>
+
+            <form action="/register" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required><br>
+
+                <label for="nickname">Nickname:</label>
+                <input type="text" id="nickname" name="nickname" required><br>
+
+                <button type="submit">Register</button>
+            </form>
+
+            {% if error %}
+            <p>{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>
