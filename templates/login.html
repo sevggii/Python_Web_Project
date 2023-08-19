@@ -49,10 +49,12 @@
       text-align: center;
       margin: 24px 0 12px 0;
       background-color: white;
+      padding-top: 20px;
     }
 
     img.avatar {
-      width: 40%;
+      width: 100px;
+      height: auto;
       border-radius: 50%;
     }
 
@@ -66,7 +68,6 @@
       padding-top: 16px;
     }
 
-    /* Your new navigation styles */
 
     .navbar {
       overflow: hidden;
@@ -117,7 +118,6 @@
       font-size: 12px;
     }
 
-    /* Your new navigation styles */
   </style>
 </head>
 
@@ -132,10 +132,9 @@
     </div>
   </div>
 
-  <h2>Login Form</h2>
-
   <form action="/login" method="post">
     <div class="imgcontainer">
+      <!--<h1>Login Form</h1>*/-->
       <img src="{{ url_for('static', filename='login_avatar.png') }}" alt="Avatar" class="avatar">
     </div>
 
