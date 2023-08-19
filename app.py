@@ -55,7 +55,7 @@ def login():
 
         if user and check_password_hash(user[3], password):   # Check user's password
             session['user_id'] = user[0]  # Initialize the user's session
-            return redirect('/')  # Redirect to home page
+            return redirect('/user_index')  # Redirect to home page
 
     return render_template('login.html')
 
