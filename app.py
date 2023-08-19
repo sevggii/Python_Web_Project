@@ -63,9 +63,9 @@ def login():
 def logout():
     return render_template('logout.html')
 
-@app.route('/exam')
-def exam():
-    return render_template('exam.html')
+@app.route('/user_index')
+def user_index():
+    return render_template('user_index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
