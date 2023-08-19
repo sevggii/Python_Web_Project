@@ -18,17 +18,24 @@
     .container {
       padding: 16px;
       background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     /* Full-width input fields */
     input[type=text],
     input[type=password] {
-      width: 100%;
+      width: 200px;
+      /*100%;*/
       padding: 15px;
       margin: 5px 0 22px 0;
-      display: inline-block;
+      display: block;
+      /*inline-block;*/
       border: none;
       background: #f1f1f1;
+      /*text-align: center;*/
     }
 
     input[type=text]:focus,
@@ -155,16 +162,16 @@
       <p>Please fill in this form to create an account.</p>
       <hr>
 
-      <label for="username"><b>Username</b></label>
+      <!--<label for="username"><b>Username</b></label>-->
       <input type="text" placeholder="Enter Username" name="username" id="username" required>
 
-      <label for="nickname"><b>Nickname</b></label>
+      <!--<label for="nickname"><b>Nickname</b></label>-->
       <input type="text" placeholder="Enter Nickname" name="nickname" id="nickname" required>
 
-      <label for="psw"><b>Password</b></label>
+      <!--<label for="psw"><b>Password</b></label>-->
       <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
-      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <!--<label for="psw-repeat"><b>Repeat Password</b></label>-->
       <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
       <hr>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
