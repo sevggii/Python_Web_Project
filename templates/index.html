@@ -11,7 +11,8 @@
         body {
             font-family: Arial,
                 Helvetica, sans-serif;
-            margin: 0; /*Full page*/
+            margin: 0;
+            /*Full page*/
         }
 
         /* Your new navigation styles */
@@ -45,6 +46,11 @@
             color: black;
         }
 
+        .navbar a.active {
+            color: black;
+            background-color: #ddd;
+        }
+
         .footer {
             background-color: #333;
             color: white;
@@ -69,9 +75,9 @@
     <div class="navbar">
         <h1 class="navbar-title">Python Pro Exam Site</h1>
         <div>
-            <a href="/">Home</a>
-            <a href="/register">Register</a>
-            <a href="/login">Login</a>
+            <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="/register" class="{{ 'active' if request.path == '/register' else '' }}">Register</a>
+            <a href="/login" class="{{ 'active' if request.path == '/login' else '' }}">Login</a>
         </div>
     </div>
 
