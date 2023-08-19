@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = "your_secret_key"  # This is used for session data security
 
 # Creating SQLite database connection
 def create_connection():
@@ -19,9 +20,14 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         nickname = request.form.get('nickname')
-        password = request.form.get('psw')
+        password = request.form.get('password')
 
-        hashed_password = generate_password_hash(password, method='sha256')
+        try:
+            hashed_password = generate_password_hash(password, method='sha256') # Generate hashed password
+        except Exception as e:
+            print("Error generating hashed password:", e)
+            hashed_password = None  # Handle the error appropriately
+
 
         conn = create_connection()
         cursor = conn.cursor()
@@ -33,8 +39,24 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        conn = create_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+        user = cursor.fetchone()
+
+        conn.close()
+
+        if user and check_password_hash(user[3], password):   # Check user's password
+            session['user_id'] = user[0]  # Initialize the user's session
+            return redirect('/')  # Redirect to home page
+
     return render_template('login.html')
 
 @app.route('/logout')
