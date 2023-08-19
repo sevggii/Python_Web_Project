@@ -80,6 +80,19 @@
     }
 
 
+    .container label {
+            font-size: 12px; /* Küçültülen yazı boyutu */
+            display: flex;
+            align-items: center;
+        }
+
+        .container span.psw {
+            font-size: 12px; /* Küçültülen yazı boyutu */
+            float: right;
+            padding-top: 16px;
+        }
+
+
     .navbar {
       overflow: hidden;
       background-color: #333;
@@ -155,27 +168,25 @@
       <!--<label for="psw"><b>Password</b></label>-->
       <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" class="cancelbtn" id="cancelButton">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
+      <button type="submit" style="width: 250px;">Login</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 250px;">
+        <label style="display: flex; align-items: center;">
+          <input type="checkbox" checked="checked" name="remember">
+          <span style="margin-left: 5px;">Remember me</span>
+        </label>
+        <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
+      </div>
   </form>
 
   <footer class="footer">
     <p>&copy; 2023 Python Pro Exam Site. All rights reserved. | Writer: Your Name</p>
   </footer>
 
-  <script>
+  <!--<script>
     document.getElementById("cancelButton").addEventListener("click", function () {
       window.location.href = '/';
     });
-  </script>
+  </script>-->
 
 </body>
 
