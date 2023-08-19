@@ -9,13 +9,16 @@
 
     <style>
         body {
-            font-family: Arial,
-                Helvetica, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
-            /*Full page*/
+            /* Full page */
+            background-image: url('/static/weather_wallpaper2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.8;
         }
 
-        /* Main content centering */
         .content {
             display: flex;
             justify-content: center;
@@ -23,12 +26,34 @@
             height: 100vh;
         }
 
+
         .main-content {
-            margin-top: 20px;
-            /* İstediğiniz boşluğu burada ayarlayabilirsiniz */
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f2f2f2;
         }
 
+        h1 {
+            margin-top: 0;
+        }
 
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
         .navbar {
             overflow: hidden;
             background-color: #333;
@@ -93,25 +118,34 @@
 
 
     <div class="content">
-        <div class="sidebar">
-            <!-- Leave it blank, the navigation menu won't be here -->
-        </div>
 
         <div class="main-content">
             <h1>Weather Forecast</h1>
 
             <form action="/" method="POST">
-                <label for="city">City:</label>
+                <label for="city">Enter City:</label>
                 <input type="text" id="city" name="city" required>
                 <button type="submit">Show Forecast</button>
             </form>
 
             {% if weather_data %}
-            <!-- Weather forecast table code -->
-            {% endif %}
-
-            {% if error %}
-            <p>{{ error }}</p>
+            <h2>3-Day Weather Forecast for {{ city }}</h2>
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Day Temperature</th>
+                    <th>Night Temperature</th>
+                </tr>
+                {% for day in weather_data %}
+                <tr>
+                    <td>{{ day.day }}</td>
+                    <td>{{ day.date }}</td>
+                    <td>{{ day.day_temp }}°C</td>
+                    <td>{{ day.night_temp }}°C</td>
+                </tr>
+                {% endfor %}
+            </table>
             {% endif %}
         </div>
     </div>
