@@ -13,6 +13,9 @@ def create_connection():
 @app.route('/')
 def index():
     author_name = "Your Name"
+    if 'user_id' in session:
+        return redirect('/user_index')  # Redirect to user_index page if user is logged in
+    author_name = "Your Name"
     return render_template('index.html', author_name=author_name)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -31,7 +34,7 @@ def register():
 
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (username, nickname, password, puan) VALUES (?, ?, ?, ?)", (username, nickname, hashed_password, 0))
+        cursor.execute("INSERT INTO users (username, nickname, password, score) VALUES (?, ?, ?, ?)", (username, nickname, hashed_password, 0))
         conn.commit()
         conn.close()
 

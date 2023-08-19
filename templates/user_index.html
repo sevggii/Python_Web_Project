@@ -143,7 +143,7 @@
         </div>
       </div>
       <div class="dropdown">
-        <a href="javascript:void(0);" id="logoutButton" class="dropbtn">Exit</a>
+        <a href="javascript:void(0);" id="logoutButton" class="dropbtn" onclick="logout()">Exit</a>
         <div class="dropdown-content">
           <!-- Exit dropdown content here -->
         </div>
@@ -151,20 +151,20 @@
     </div>
   </div>
 
+  <script>
+    function logout() {
+        // Perform logout action (e.g., clear session data)
+        // You can use an AJAX request to the server to clear the session
+
+        // After logout, redirect to index.html
+        window.location.href = "/";
+    }
+</script>
+
   <form action="/user_index" method="post">
 
   </form>
-  <script>
-    document.getElementById("logoutButton").addEventListener("click", function () {
-      window.location.href = '/';
-    });
-  </script>
-
-  <form action="/exams" method="post">
-    <div class="container">
-    </div>
-
-  </form>
+  
 
   <footer class="footer">
     <p>&copy; 2023 Python Pro Exam Site. All rights reserved. | Writer: Your Name</p>
