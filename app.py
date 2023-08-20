@@ -143,11 +143,11 @@ def update_score():
     conn = create_connection()
     cursor = conn.cursor()
 
-    # Mevcut puanı veritabanından al
+    # Get current score from database
     cursor.execute("SELECT score FROM users WHERE id = ?", (user_id,))
     current_score = cursor.fetchone()[0]
 
-    # Güncelleme işlemi
+    # Update process
     updated_score = current_score + new_score
     cursor.execute("UPDATE users SET score = ? WHERE id = ?", (updated_score, user_id))
     conn.commit()
