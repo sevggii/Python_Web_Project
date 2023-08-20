@@ -6,6 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # This is used for session data security
 
+# Define the global author_name variable
+author_name = "AuthorNamee"
+
 # Creating SQLite database connection
 def create_connection():
     conn = sqlite3.connect('users.db')
@@ -13,7 +16,6 @@ def create_connection():
 
 @app.route('/')
 def index():
-    author_name = "AuthorNamee"
     if 'user_id' in session:
         return redirect('/user_index')  # Redirect to user_index page if user is logged in
     return render_template('index.html', author_name=author_name)
@@ -39,7 +41,7 @@ def signup():
         conn.close()
 
         return redirect('/')  # Redirect to home page after registration is complete
-    return render_template('signup.html')
+    return render_template('signup.html', author_name=author_name)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -60,7 +62,7 @@ def login():
             session['user_id'] = user[0]  # Initialize the user's session
             return redirect('/user_index')  # Redirect to home page
 
-    return render_template('login.html')
+    return render_template('login.html', author_name=author_name)
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -74,7 +76,7 @@ def logout():
 def user_index():
     if 'user_id' not in session:
         return redirect('/')
-    return render_template('user_index.html')
+    return render_template('user_index.html', author_name=author_name)
 
 if __name__ == '__main__':
     app.run(debug=True)
