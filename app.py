@@ -18,8 +18,8 @@ def index():
         return redirect('/user_index')  # Redirect to user_index page if user is logged in
     return render_template('index.html', author_name=author_name)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
     if request.method == 'POST':
         username = request.form.get('username')
         nickname = request.form.get('nickname')
@@ -32,7 +32,6 @@ def register():
             hashed_password = None  # Handle the error appropriately
 
 
-
         conn = create_connection()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO users (username, nickname, password, score) VALUES (?, ?, ?, ?)", (username, nickname, hashed_password, 0))
@@ -40,7 +39,7 @@ def register():
         conn.close()
 
         return redirect('/')  # Redirect to home page after registration is complete
-    return render_template('register.html')
+    return render_template('signup.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
