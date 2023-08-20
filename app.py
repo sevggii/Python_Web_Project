@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, session
 import sqlite3
+from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -26,21 +26,34 @@ def signup():
         username = request.form.get('username')
         nickname = request.form.get('nickname')
         password = request.form.get('password')
+        password_repeat = request.form.get('password-repeat')
+
+
+            # Verify password match
+        if password != password_repeat:
+            return render_template('signup.html', error="Passwords do not match", author_name=author_name)
 
         try:
-            hashed_password = generate_password_hash(password, method='sha256') # Generate hashed password
+            hashed_password = generate_password_hash(password, method='sha256')
         except Exception as e:
             print("Error generating hashed password:", e)
-            hashed_password = None  # Handle the error appropriately
+            hashed_password = None
 
 
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (username, nickname, password, score) VALUES (?, ?, ?, ?)", (username, nickname, hashed_password, 0))
-        conn.commit()
-        conn.close()
+        try:
+            cursor.execute("INSERT INTO users (username, nickname, password, score) VALUES (?, ?, ?, ?)",
+                           (username, nickname, hashed_password, 0))
+            conn.commit()
+            conn.close()
+            return redirect('/')
+        except sqlite3.Error as e:
+            print("Error inserting user:", e)
+            conn.rollback()
+            conn.close()
+            return render_template('signup.html', error="Error occurred during registration", author_name=author_name)
 
-        return redirect('/')  # Redirect to home page after registration is complete
     return render_template('signup.html', author_name=author_name)
 
 
