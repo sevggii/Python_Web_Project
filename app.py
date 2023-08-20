@@ -43,7 +43,13 @@ def signupPage():
             conn.close()
             return render_template('signupPage.html', error="Username is already taken", author_name=author_name)
         
-        
+        # Check if nickname is already taken
+        cursor.execute("SELECT * FROM users WHERE nickname = ?", (nickname,))
+        existing_nickname = cursor.fetchone()
+        if existing_nickname:
+            conn.close()
+            return render_template('signupPage.html', error="Nickname is already taken", author_name=author_name)
+
         try:
             hashed_password = generate_password_hash(password, method='sha256')
         except Exception as e:
