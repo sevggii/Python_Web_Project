@@ -12,10 +12,9 @@ def create_connection():
 
 @app.route('/')
 def index():
-    author_name = "Your Name"
+    author_name = "Sevgi"
     if 'user_id' in session:
         return redirect('/user_index')  # Redirect to user_index page if user is logged in
-    author_name = "Your Name"
     return render_template('index.html', author_name=author_name)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -30,6 +29,7 @@ def register():
         except Exception as e:
             print("Error generating hashed password:", e)
             hashed_password = None  # Handle the error appropriately
+
 
 
         conn = create_connection()
@@ -64,10 +64,16 @@ def login():
 
 @app.route('/logout')
 def logout():
-    return render_template('logout.html')
+
+    session.pop('user_id', None)  # Log out the user
+    return redirect('/')
+
+    #return render_template('logout.html')
 
 @app.route('/user_index')
 def user_index():
+    if 'user_id' not in session:
+        return redirect('/')
     return render_template('user_index.html')
 
 if __name__ == '__main__':
