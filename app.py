@@ -132,6 +132,30 @@ def examPythonAI():
 
     return render_template('examPythonAI.html', author_name=author_name, user_score=user_score, leaderboard_data=leaderboard_data)
 
+@app.route('/updateScore', methods=['POST'])
+def update_score():
+    if 'user_id' not in session:
+        return 'Unauthorized', 401
+    
+    user_id = session['user_id']
+    new_score = int(request.json.get('score'))
+
+    conn = create_connection()
+    cursor = conn.cursor()
+
+    # Mevcut puanı veritabanından al
+    cursor.execute("SELECT score FROM users WHERE id = ?", (user_id,))
+    current_score = cursor.fetchone()[0]
+
+    # Güncelleme işlemi
+    updated_score = current_score + new_score
+    cursor.execute("UPDATE users SET score = ? WHERE id = ?", (updated_score, user_id))
+    conn.commit()
+    conn.close()
+
+    return 'Score updated successfully', 200
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

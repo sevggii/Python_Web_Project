@@ -342,6 +342,27 @@
 
 
   <script>
+    function updateScoreInDatabase(score) {
+      fetch('/updateScore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ score: score }),
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log('Score updated successfully');
+          } else {
+            console.error('Error updating score');
+          }
+        })
+        .catch(error => {
+          console.error('Error updating score:', error);
+        });
+    }
+
+
     function logout() {
       // Send AJAX request to end session
       fetch('/logout', {
