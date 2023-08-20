@@ -19,9 +19,24 @@
       padding: 16px;
       background-color: white;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    }
+
+    .leaderboard {
+      flex: 1;
+      padding: 16px;
+      background-color: #f1f1f1;
+      position: sticky;
+      /* Fixed location */
+      top: 16px;
+      /* You can adjust the height setting according to your needs */
+      height: 100vh;
+      /* Adjust according to the height of the page */
+    }
+
+    .exam {
+      flex: 2;
+      padding: 16px;
+      background-color: white;
     }
 
     .navbar {
@@ -161,22 +176,37 @@
   </div>
 
   <div class="container">
-    <h2>Python AI Development Exam</h2>
-    <p>Your total score: <span id="userScore">0</span></p>
-
-    <div id="question-container">
-      <!-- The question field will be updated dynamically here -->
+    <div class="leaderboard">
+      <h3>Leaderboard</h3>
+      <table>
+        <tr>
+          <th>Username</th>
+          <th>Score</th>
+        </tr>
+        <!-- The leaderboard will be populated dynamically here -->
+      </table>
     </div>
 
 
-    <form id="answer-form" style="display: none;">
-      <input type="radio" name="answer" value="answer1"> <span id="answer1"></span><br>
-      <input type="radio" name="answer" value="answer2"> <span id="answer2"></span><br>
-      <input type="radio" name="answer" value="answer3"> <span id="answer3"></span><br>
-      <input type="radio" name="answer" value="answer4"> <span id="answer4"></span><br>
-      <br>
-      <button type="submit">Next Question</button>
-    </form>
+
+    <div class="exam">
+      <h2>Python AI Development Exam</h2>
+      <p>Your total score: <span id="userScore">0</span></p>
+
+      <div id="question-container">
+        <!-- The question field will be updated dynamically here -->
+      </div>
+
+
+      <form id="answer-form" style="display: none;">
+        <input type="radio" name="answer" value="answer1"> <span id="answer1"></span><br>
+        <input type="radio" name="answer" value="answer2"> <span id="answer2"></span><br>
+        <input type="radio" name="answer" value="answer3"> <span id="answer3"></span><br>
+        <input type="radio" name="answer" value="answer4"> <span id="answer4"></span><br>
+        <br>
+        <button type="submit">Next Question</button>
+      </form>
+    </div>
   </div>
 
   <script>
