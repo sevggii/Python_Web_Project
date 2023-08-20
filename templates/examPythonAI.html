@@ -155,18 +155,120 @@
 
   <div class="container">
     <h2>Python AI Development Exam</h2>
-    <p>Your total score: {{ user_score }}</p> <!-- Display user's total score here -->
+    <p>Your total score: {{ user_score }}</p> 
+
+    <div id="question-container">
+      <!-- The question field will be updated dynamically here -->
+    </div>
 
 
-    <h3>Question: What is the capital of France?</h3>
-    <form action="/examPythonAI" method="post">
-      <input type="radio" name="answer" value="paris"> Paris<br>
-      <input type="radio" name="answer" value="london"> London<br>
-      <input type="radio" name="answer" value="berlin"> Berlin<br>
-      <input type="radio" name="answer" value="rome"> Rome<br>
-      <button type="submit">Submit Answer</button>
+    <form id="answer-form" style="display: none;">
+      <input type="radio" name="answer" value="answer1"> <span id="answer1"></span><br>
+      <input type="radio" name="answer" value="answer2"> <span id="answer2"></span><br>
+      <input type="radio" name="answer" value="answer3"> <span id="answer3"></span><br>
+      <input type="radio" name="answer" value="answer4"> <span id="answer4"></span><br>
+      <hr>
+      <button type="submit">Next Question</button>
     </form>
   </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Python'da yapay zeka (AI) geliştirmek için hangi kütüphane sıkça kullanılır?",
+        answers: [
+          { text: "pandas", correct: false },
+          { text: "numpy", correct: false },
+          { text: "scikit-learn", correct: true },
+          { text: "tensorflow", correct: false }
+        ]
+      },
+      {
+        question: "Bir yapay sinir ağı modelinin eğitilmesi sırasında, aşağıdakilerden hangisi ağırlıkların güncellenmesini optimize etmek için kullanılır?",
+        answers: [
+          { text: "Backpropagation", correct: true },
+          { text: "Feature extraction", correct: false },
+          { text: "Clustering", correct: false },
+          { text: "Dimensionality reduction", correct: false }
+        ]
+      },
+    
+      {
+        question: "Veri setinin doğru bir şekilde eğitilmesi için, genellikle veri seti nasıl bölünmelidir?",
+        answers: [
+          { text: "Eğitim, test ve doğrulama setlerine bölünmelidir.", correct: true },
+          { text: "Sadece eğitim ve test setlerine bölünmelidir.", correct: false },
+          { text: "Sadece eğitim ve doğrulama setlerine bölünmelidir.", correct: false },
+          { text: "Sadece test ve doğrulama setlerine bölünmelidir.", correct: false }
+        ]
+      },
+
+      {
+        question: "Modelin performansını ölçmek için kullanılan popüler metriklerden biri nedir ve gerçek değerler ile tahminler arasındaki farkı hesaplar?",
+        answers: [
+          { text: "Accuracy", correct: false },
+          { text: "Precision", correct: false },
+          { text: "Recall", correct: false },
+          { text: "Mean squared error", correct: true }
+        ]
+      },
+  ];
+
+  const questionContainer = document.getElementById("question-container");
+  const answerForm = document.getElementById("answer-form");
+  let shuffledQuestions = shuffleArray(questions);
+  let currentQuestionIndex = 0;
+
+  function loadNextQuestion() {
+    if (currentQuestionIndex >= shuffledQuestions.length) {
+      questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
+      answerForm.style.display = "none";
+      return;
+    }
+
+    const question = shuffledQuestions[currentQuestionIndex];
+    const shuffledAnswers = shuffleArray(question.answers);
+    questionContainer.innerHTML = `
+      <h3>Question: ${question.question}</h3>
+    `;
+    
+    shuffledAnswers.forEach((answer, index) => {
+      document.getElementById(`answer${index + 1}`).textContent = answer.text;
+      if (answer.correct) {
+        answerForm.elements[index].value = "correct";
+      } else {
+        answerForm.elements[index].value = "incorrect";
+      }
+    });
+
+    answerForm.style.display = "block";
+    currentQuestionIndex++;
+  }
+
+  function shuffleArray(array) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  }
+
+  answerForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const selectedAnswer = Array.from(answerForm.elements).find(element => element.checked);
+    if (selectedAnswer && selectedAnswer.value === "correct") {
+      // Increase user's score
+      // You can implement this part based on your previous code
+    }
+    loadNextQuestion();
+  });
+
+  // Start the exam
+  loadNextQuestion();
+</script>
+
+
 
 
   <script>
