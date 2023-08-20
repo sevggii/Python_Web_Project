@@ -160,6 +160,12 @@
 
     <div class="container">
       <h2 style="margin-top: 0;">Sign Up</h2>
+      
+      {% if error %}
+      <p style="color: red;">{{ error }}</p>
+      {% endif %}
+
+
       <p style="font-size: 15px; margin-bottom: 5px;">Please fill in this form to create an account.</p>
       <hr>
       <input type="text" placeholder="Enter Username" name="username" id="username" required>

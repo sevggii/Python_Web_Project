@@ -33,6 +33,17 @@ def signupPage():
         if password != password_repeat:
             return render_template('signupPage.html', error="Passwords do not match", author_name=author_name)
 
+        conn = create_connection()
+        cursor = conn.cursor()
+
+        # Check if username is already taken
+        cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+        existing_user = cursor.fetchone()
+        if existing_user:
+            conn.close()
+            return render_template('signupPage.html', error="Username is already taken", author_name=author_name)
+        
+        
         try:
             hashed_password = generate_password_hash(password, method='sha256')
         except Exception as e:
@@ -40,14 +51,12 @@ def signupPage():
             hashed_password = None
 
 
-        conn = create_connection()
-        cursor = conn.cursor()
         try:
             cursor.execute("INSERT INTO users (username, nickname, password, score) VALUES (?, ?, ?, ?)",
                            (username, nickname, hashed_password, 0))
             conn.commit()
             conn.close()
-            return redirect('/')
+            return redirect('/loginPage')
         except sqlite3.Error as e:
             print("Error inserting user:", e)
             conn.rollback()
