@@ -4,7 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exam: AI Development in Python</title>
-  
+
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -153,6 +153,22 @@
     </div>
   </div>
 
+  <div class="container">
+    <h2>Python AI Development Exam</h2>
+    <p>Your total score: {{ user_score }}</p> <!-- Display user's total score here -->
+
+
+    <h3>Question: What is the capital of France?</h3>
+    <form action="/examPythonAI" method="post">
+      <input type="radio" name="answer" value="paris"> Paris<br>
+      <input type="radio" name="answer" value="london"> London<br>
+      <input type="radio" name="answer" value="berlin"> Berlin<br>
+      <input type="radio" name="answer" value="rome"> Rome<br>
+      <button type="submit">Submit Answer</button>
+    </form>
+  </div>
+
+
   <script>
     function logout() {
       // Send AJAX request to end session
@@ -179,10 +195,6 @@
 
 
   </script>
-
-  <form action="/examPythonAI" method="post">
-
-  </form>
 
 
   <footer class="footer">

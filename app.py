@@ -106,8 +106,24 @@ def userHomePage():
 
 
 @app.route('/examPythonAI')
-def exam_python_ai():
-    return render_template('examPythonAI.html', author_name=author_name)
+def examPythonAI():
+    if 'user_id' not in session:
+        return redirect('/loginPage')
+
+    user_id = session['user_id']
+    
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT score FROM users WHERE id = ?", (user_id,))
+    user = cursor.fetchone()
+    conn.close()
+    
+    if user:
+        user_score = user[0] 
+    else:
+        user_score = 0
+
+    return render_template('examPythonAI.html', author_name=author_name, user_score=user_score)
 
 
 if __name__ == '__main__':
