@@ -31,6 +31,27 @@
       /* You can adjust the height setting according to your needs */
       height: 100vh;
       /* Adjust according to the height of the page */
+      max-width: 200px;
+    }
+
+    .leaderboard table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .leaderboard th,
+    .leaderboard td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .leaderboard th:nth-child(2),
+    .leaderboard td:nth-child(2) {
+      padding-left: 20px;
+      /* Boşluk eklemek için soldan iç içe giren hücre içeriğini kaydırma */
+      padding-right: 20px;
+      /* Boşluk eklemek için sağdan iç içe giren hücre içeriğini kaydırma */
     }
 
     .exam {
@@ -177,7 +198,7 @@
 
   <div class="container">
     <div class="leaderboard">
-      <h3>Leaderboard</h3>
+      <h3 style="text-align: center;">Leaderboard</h3>
       <table>
         <tr>
           <th>Username</th>
