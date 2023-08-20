@@ -162,7 +162,7 @@
 
   <div class="container">
     <h2>Python AI Development Exam</h2>
-    <p>Your total score: {{ user_score }}</p>
+    <p>Your total score: <span id="userScore">0</span></p>
 
     <div id="question-container">
       <!-- The question field will be updated dynamically here -->
@@ -221,6 +221,9 @@
       },
     ];
 
+    let userScore = 0;
+    const userScoreElement = document.getElementById("userScore");
+
     const questionContainer = document.getElementById("question-container");
     const answerForm = document.getElementById("answer-form");
     let shuffledQuestions = shuffleArray(questions);
@@ -229,6 +232,7 @@
       if (shuffledQuestions.length === 0) {
         questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
         answerForm.style.display = "none";
+        updateScoreInDatabase(userScore); // Update user's score in the database
         return;
       }
 
@@ -269,8 +273,8 @@
       event.preventDefault();
       const selectedAnswer = Array.from(answerForm.elements).find(element => element.checked);
       if (selectedAnswer && selectedAnswer.value === "correct") {
-        // Increase user's score
-        // You can implement this part based on your previous code
+        userScore += 1;
+        userScoreElement.textContent = userScore; // Update user's score on the page
       }
       loadNextQuestion();
     });
