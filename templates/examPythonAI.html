@@ -155,7 +155,7 @@
 
   <div class="container">
     <h2>Python AI Development Exam</h2>
-    <p>Your total score: {{ user_score }}</p> 
+    <p>Your total score: {{ user_score }}</p>
 
     <div id="question-container">
       <!-- The question field will be updated dynamically here -->
@@ -168,7 +168,7 @@
       <input type="radio" name="answer" value="answer3"> <span id="answer3"></span><br>
       <input type="radio" name="answer" value="answer4"> <span id="answer4"></span><br>
       <hr>
-      <button type="submit">Next Question</button>
+      <button type="button" id="next-button" onclick="loadNextQuestion()">Next Question</button>
     </form>
   </div>
 
@@ -192,7 +192,7 @@
           { text: "Dimensionality reduction", correct: false }
         ]
       },
-    
+
       {
         question: "Veri setinin doğru bir şekilde eğitilmesi için, genellikle veri seti nasıl bölünmelidir?",
         answers: [
@@ -212,11 +212,13 @@
           { text: "Mean squared error", correct: true }
         ]
       },
-  ];
+    ];
 
-  const questionContainer = document.getElementById("question-container");
+    const questionContainer = document.getElementById("question-container");
     const answerForm = document.getElementById("answer-form");
     const userScoreElement = document.getElementById("user-score");
+    const nextButton = document.getElementById("next-button");
+
     let shuffledQuestions = shuffleArray(questions);
     let currentQuestionIndex = 0;
     let userScore = 0;
@@ -241,6 +243,7 @@
       answerForm.innerHTML = answerOptionsHtml;
       answerForm.style.display = "block";
       currentQuestionIndex++;
+      nextButton.style.display = "none"; // Next Question düğmesini gizle
     }
 
     function checkAnswer() {
@@ -254,7 +257,7 @@
         userScoreElement.textContent = userScore;
       }
 
-      loadNextQuestion();
+      nextButton.style.display = "block"; // Next Question düğmesini göster
     }
 
     function shuffleArray(array) {
@@ -266,7 +269,7 @@
       return shuffledArray;
     }
 
-    // Start the exam
+    // Başlangıçta ilk soruyu yükle
     loadNextQuestion();
   </script>
 
