@@ -221,17 +221,16 @@
 
   const questionContainer = document.getElementById("question-container");
   const answerForm = document.getElementById("answer-form");
-  let shuffledQuestions = shuffleArray(questions);
-  let currentQuestionIndex = 0;
+  let shuffledQuestions = shuffleArray(questions); // Shuffle the questions initially
 
   function loadNextQuestion() {
-    if (currentQuestionIndex >= shuffledQuestions.length) {
+    if (shuffledQuestions.length === 0) {
       questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
       answerForm.style.display = "none";
       return;
     }
 
-    const question = shuffledQuestions[currentQuestionIndex];
+    const question = shuffledQuestions.pop(); // Remove the last question from the array
     const shuffledAnswers = shuffleArray(question.answers);
     questionContainer.innerHTML = `
       <h3>Question: ${question.question}</h3>
@@ -247,7 +246,6 @@
     });
 
     answerForm.style.display = "block";
-    currentQuestionIndex++;
   }
 
   function shuffleArray(array) {
@@ -272,8 +270,6 @@
   // Start the exam
   loadNextQuestion();
 </script>
-
-
 
 
   <script>
