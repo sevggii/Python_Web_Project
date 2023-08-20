@@ -155,7 +155,7 @@
 
   <div class="container">
     <h2>Python AI Development Exam</h2>
-    <p>Your total score: {{ user_score }}</p>
+    <p>Your total score: {{ user_score }}</p> 
 
     <div id="question-container">
       <!-- The question field will be updated dynamically here -->
@@ -168,7 +168,7 @@
       <input type="radio" name="answer" value="answer3"> <span id="answer3"></span><br>
       <input type="radio" name="answer" value="answer4"> <span id="answer4"></span><br>
       <hr>
-      <button type="button" id="next-button" onclick="loadNextQuestion()">Next Question</button>
+      <button type="submit">Next Question</button>
     </form>
   </div>
 
@@ -212,66 +212,61 @@
           { text: "Mean squared error", correct: true }
         ]
       },
-    ];
+  ];
 
-    const questionContainer = document.getElementById("question-container");
-    const answerForm = document.getElementById("answer-form");
-    const userScoreElement = document.getElementById("user-score");
-    const nextButton = document.getElementById("next-button");
+  const questionContainer = document.getElementById("question-container");
+  const answerForm = document.getElementById("answer-form");
+  let shuffledQuestions = shuffleArray(questions);
+  let currentQuestionIndex = 0;
 
-    let shuffledQuestions = shuffleArray(questions);
-    let currentQuestionIndex = 0;
-    let userScore = 0;
-
-    function loadNextQuestion() {
-      if (currentQuestionIndex >= shuffledQuestions.length) {
-        questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
-        answerForm.style.display = "none";
-        // Start scoring here
-        return;
-      }
-
-      const question = shuffledQuestions[currentQuestionIndex];
-      questionContainer.innerHTML = `
-        <h3>Question: ${question.question}</h3>
-      `;
-
-      const answerOptionsHtml = question.answers.map((answer, index) => `
-        <input type="radio" name="answer" value="${answer.correct ? 'correct' : 'incorrect'}"> <span>${answer.text}</span><br>
-      `).join('');
-
-      answerForm.innerHTML = answerOptionsHtml;
-      answerForm.style.display = "block";
-      currentQuestionIndex++;
-      nextButton.style.display = "none"; // Next Question düğmesini gizle
+  function loadNextQuestion() {
+    if (currentQuestionIndex >= shuffledQuestions.length) {
+      questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
+      answerForm.style.display = "none";
+      return;
     }
 
-    function checkAnswer() {
-      const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-      if (!selectedAnswer) {
-        return;
-      }
+    const question = shuffledQuestions[currentQuestionIndex];
+    const shuffledAnswers = shuffleArray(question.answers);
+    questionContainer.innerHTML = `
+      <h3>Question: ${question.question}</h3>
+    `;
 
-      if (selectedAnswer.value === 'correct') {
-        userScore++;
-        userScoreElement.textContent = userScore;
+    shuffledAnswers.forEach((answer, index) => {
+      document.getElementById(`answer${index + 1}`).textContent = answer.text;
+      if (answer.correct) {
+        answerForm.elements[index].value = "correct";
+      } else {
+        answerForm.elements[index].value = "incorrect";
       }
+    });
 
-      nextButton.style.display = "block"; // Next Question düğmesini göster
+    answerForm.style.display = "block";
+    currentQuestionIndex++;
+  }
+
+  function shuffleArray(array) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
+    return shuffledArray;
+  }
 
-    function shuffleArray(array) {
-      const shuffledArray = [...array];
-      for (let i = shuffledArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-      return shuffledArray;
+  answerForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const selectedAnswer = Array.from(answerForm.elements).find(element => element.checked);
+    if (selectedAnswer && selectedAnswer.value === "correct") {
+      // Increase user's score
+      // You can implement this part based on your previous code
     }
-
-    // Başlangıçta ilk soruyu yükle
     loadNextQuestion();
-  </script>
+  });
+
+  // Start the exam
+  loadNextQuestion();
+</script>
 
 
 
