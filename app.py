@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "your_secret_key"  # This is used for session data security
 
 # Define the global author_name variable
-author_name = "AuthorNamee"
+author_name = "Sevgi"
 
 # Creating SQLite database connection
 def create_connection():
