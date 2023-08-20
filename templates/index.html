@@ -24,8 +24,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam siyah arkaplan */
-            z-index: -1; /* Arkaplanı sayfa arkasına al */
+            background-color: rgba(0, 0, 0, 0.5); /* Translucent black background */
+            z-index: -1; /* Put the background behind the page */
         }
 
         .content {
@@ -116,7 +116,7 @@
 </head>
 
 <body>
-    <div class="background-overlay"></div> <!-- Arka plan katmanı -->
+    <div class="background-overlay"></div> <!-- Background layer -->
 
     <div class="navbar">
         <h1 class="navbar-title">Python Pro Exam Site</h1>
@@ -132,7 +132,6 @@
 
         <div class="main-content">
             <h1>Weather Forecast</h1>
-
             <form action="/" method="POST">
                 <label for="city">Enter City:</label>
                 <input type="text" id="city" name="city" required>
@@ -162,7 +161,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2023 Python Pro Exam Site. All rights reserved. | Writer: Your Name</p>
+        <p>&copy; 2023 Python Pro Exam Site. All rights reserved. | Made by: {{ author_name }}</p>
     </footer>
 </body>
 
