@@ -83,8 +83,6 @@ def logout():
         session.pop('user_id', None)  # Log out the user
     return redirect('/')
 
-    #return render_template('logout.html')
-
 @app.route('/user_index')
 def user_index():
     if 'user_id' not in session:
