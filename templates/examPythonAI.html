@@ -121,9 +121,11 @@
     }
 
     #answer-form {
-    border: none; /* Remove the border */
-    padding: 0;   /* Remove the padding */
-  }
+      border: none;
+      /* Remove the border */
+      padding: 0;
+      /* Remove the padding */
+    }
   </style>
 </head>
 
@@ -160,7 +162,7 @@
 
   <div class="container">
     <h2>Python AI Development Exam</h2>
-    <p>Your total score: {{ user_score }}</p> 
+    <p>Your total score: {{ user_score }}</p>
 
     <div id="question-container">
       <!-- The question field will be updated dynamically here -->
@@ -217,59 +219,65 @@
           { text: "Mean squared error", correct: true }
         ]
       },
-  ];
+    ];
 
-  const questionContainer = document.getElementById("question-container");
-  const answerForm = document.getElementById("answer-form");
-  let shuffledQuestions = shuffleArray(questions); // Shuffle the questions initially
+    const questionContainer = document.getElementById("question-container");
+    const answerForm = document.getElementById("answer-form");
+    let shuffledQuestions = shuffleArray(questions);
 
-  function loadNextQuestion() {
-    if (shuffledQuestions.length === 0) {
-      questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
-      answerForm.style.display = "none";
-      return;
+    function loadNextQuestion() {
+      if (shuffledQuestions.length === 0) {
+        questionContainer.innerHTML = "<p>Congratulations! You have completed the exam.</p>";
+        answerForm.style.display = "none";
+        return;
+      }
+
+      const question = shuffledQuestions.pop();
+      const shuffledAnswers = shuffleArray(question.answers);
+      questionContainer.innerHTML = `
+        <h3>Question: ${question.question}</h3>
+      `;
+
+      // Clear the selected radio button from the previous question
+      const selectedRadioButton = document.querySelector('input[name="answer"]:checked');
+      if (selectedRadioButton) {
+        selectedRadioButton.checked = false;
+      }
+
+      shuffledAnswers.forEach((answer, index) => {
+        document.getElementById(`answer${index + 1}`).textContent = answer.text;
+        if (answer.correct) {
+          answerForm.elements[index].value = "correct";
+        } else {
+          answerForm.elements[index].value = "incorrect";
+        }
+      });
+
+      answerForm.style.display = "block";
     }
 
-    const question = shuffledQuestions.pop(); // Remove the last question from the array
-    const shuffledAnswers = shuffleArray(question.answers);
-    questionContainer.innerHTML = `
-      <h3>Question: ${question.question}</h3>
-    `;
-
-    shuffledAnswers.forEach((answer, index) => {
-      document.getElementById(`answer${index + 1}`).textContent = answer.text;
-      if (answer.correct) {
-        answerForm.elements[index].value = "correct";
-      } else {
-        answerForm.elements[index].value = "incorrect";
+    function shuffleArray(array) {
+      const shuffledArray = [...array];
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
       }
+      return shuffledArray;
+    }
+
+    answerForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const selectedAnswer = Array.from(answerForm.elements).find(element => element.checked);
+      if (selectedAnswer && selectedAnswer.value === "correct") {
+        // Increase user's score
+        // You can implement this part based on your previous code
+      }
+      loadNextQuestion();
     });
 
-    answerForm.style.display = "block";
-  }
-
-  function shuffleArray(array) {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    return shuffledArray;
-  }
-
-  answerForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    const selectedAnswer = Array.from(answerForm.elements).find(element => element.checked);
-    if (selectedAnswer && selectedAnswer.value === "correct") {
-      // Increase user's score
-      // You can implement this part based on your previous code
-    }
+    // Start the exam
     loadNextQuestion();
-  });
-
-  // Start the exam
-  loadNextQuestion();
-</script>
+  </script>
 
 
   <script>
