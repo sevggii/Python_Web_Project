@@ -156,12 +156,12 @@
     <h1 class="navbar-title">Python Pro Exam Site</h1>
     <div>
       <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Home</a>
-      <a href="/loginForm" class="{{ 'active' if request.path == '/loginForm' else '' }}">Login</a>
-      <a href="/signupForm" class="{{ 'active' if request.path == '/signupForm' else '' }}">Sign Up</a>
+      <a href="/loginPage" class="{{ 'active' if request.path == '/loginPage' else '' }}">Login</a>
+      <a href="/signupPage" class="{{ 'active' if request.path == '/signupPage' else '' }}">Sign Up</a>
     </div>
   </div>
 
-  <form action="/loginForm" method="post">
+  <form action="/loginPage" method="post">
     <div class="imgcontainer">
       <!--<h1>Login Form</h1>*/-->
       <img src="{{ url_for('static', filename='login_avatar.png') }}" alt="Avatar" class="avatar">
@@ -198,7 +198,7 @@
         event.preventDefault();  // Prevent form submission
 
         const formData = new FormData(loginForm);
-        const response = await fetch('/loginForm', {
+        const response = await fetch('/loginPage', {
             method: 'POST',
             body: formData
         });
