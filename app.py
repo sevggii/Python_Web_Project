@@ -89,5 +89,11 @@ def userHomePage():
         return redirect('/')
     return render_template('userHomePage.html', author_name=author_name)
 
+
+@app.route('/examPythonAI')
+def exam_python_ai():
+    return render_template('examPythonAI.html', author_name=author_name)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
