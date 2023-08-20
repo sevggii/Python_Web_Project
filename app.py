@@ -123,7 +123,14 @@ def examPythonAI():
     else:
         user_score = 0
 
-    return render_template('examPythonAI.html', author_name=author_name, user_score=user_score)
+    # Retrieve leaderboard data
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT username, score FROM users ORDER BY score DESC")
+    leaderboard_data = cursor.fetchall()
+    conn.close()
+
+    return render_template('examPythonAI.html', author_name=author_name, user_score=user_score, leaderboard_data=leaderboard_data)
 
 
 if __name__ == '__main__':

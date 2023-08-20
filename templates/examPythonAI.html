@@ -183,7 +183,13 @@
           <th>Username</th>
           <th>Score</th>
         </tr>
-        <!-- The leaderboard will be populated dynamically here -->
+        <!-- Populate the leaderboard dynamically -->
+        {% for entry in leaderboard_data %}
+        <tr>
+          <td>{{ entry[0] }}</td>
+          <td>{{ entry[1] }}</td>
+        </tr>
+        {% endfor %}
       </table>
     </div>
 
