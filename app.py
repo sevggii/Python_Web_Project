@@ -15,13 +15,13 @@ def create_connection():
     return conn
 
 @app.route('/')
-def index():
+def indexForm():
     if 'user_id' in session:
-        return redirect('/user_index')  # Redirect to user_index page if user is logged in
+        return redirect('/userHomePage')  # Redirect to UserHomePage if user is logged in
     return render_template('index.html', author_name=author_name)
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
+@app.route('/signupPage', methods=['GET', 'POST'])
+def signupPage():
     if request.method == 'POST':
         username = request.form.get('username')
         nickname = request.form.get('nickname')
@@ -31,7 +31,7 @@ def signup():
 
             # Verify password match
         if password != password_repeat:
-            return render_template('signup.html', error="Passwords do not match", author_name=author_name)
+            return render_template('signupPage.html', error="Passwords do not match", author_name=author_name)
 
         try:
             hashed_password = generate_password_hash(password, method='sha256')
@@ -52,13 +52,13 @@ def signup():
             print("Error inserting user:", e)
             conn.rollback()
             conn.close()
-            return render_template('signup.html', error="Error occurred during registration", author_name=author_name)
+            return render_template('signupPage.html', error="Error occurred during registration", author_name=author_name)
 
-    return render_template('signup.html', author_name=author_name)
+    return render_template('signupPage.html', author_name=author_name)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/loginPage', methods=['GET', 'POST'])
+def loginPage():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -73,9 +73,9 @@ def login():
 
         if user and check_password_hash(user[3], password):   # Check user's password
             session['user_id'] = user[0]  # Initialize the user's session
-            return redirect('/user_index')  # Redirect to home page
+            return redirect('/userHomePage')  # Redirect to home page
 
-    return render_template('login.html', author_name=author_name)
+    return render_template('loginPage.html', author_name=author_name)
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -83,11 +83,11 @@ def logout():
         session.pop('user_id', None)  # Log out the user
     return redirect('/')
 
-@app.route('/user_index')
-def user_index():
+@app.route('/userHomePage')
+def userHomePage():
     if 'user_id' not in session:
         return redirect('/')
-    return render_template('user_index.html', author_name=author_name)
+    return render_template('userHomePage.html', author_name=author_name)
 
 if __name__ == '__main__':
     app.run(debug=True)
