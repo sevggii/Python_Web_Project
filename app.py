@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # This is used for session data security
 
@@ -12,7 +13,7 @@ def create_connection():
 
 @app.route('/')
 def index():
-    author_name = "Sevgi"
+    author_name = "AuthorNamee"
     if 'user_id' in session:
         return redirect('/user_index')  # Redirect to user_index page if user is logged in
     return render_template('index.html', author_name=author_name)
@@ -62,10 +63,10 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
-
-    session.pop('user_id', None)  # Log out the user
+    if 'user_id' in session:
+        session.pop('user_id', None)  # Log out the user
     return redirect('/')
 
     #return render_template('logout.html')
